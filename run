@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# VARS
+workingDir=$(pwd)
+
+# FUNCS
+separator-x() {
+    #8 #'s or whatever number it's given
+    local x="${1:-8}"
+    local separator=""
+    for ((i=0; i<x; i++)); do
+        separator="$separator#"
+    done
+    echo "$separator"
+}
+message(){
+    echo $1
+    separator-x 16
+
+}
+
+message "BUILDING VENV"
+
+python3 -m venv venv
+
+message "ACTIVATING VENV"
+
+source $workingDir/venv/bin/activate
+
+pip install -r requirements.txt
+
+python3 main.py
